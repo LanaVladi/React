@@ -1,0 +1,90 @@
+.cards-list-container {
+    width: 100%;
+}
+
+.books-container {
+    display: grid;
+    max-width: 80%;
+    align-items: center;
+    justify-items: center;
+    margin: 0 auto;
+    margin-top: 4rem;
+    border-radius: 0.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    column-gap: 5rem;
+    row-gap: 5rem;
+}
+
+.books-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 17rem;
+    text-align: center;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.books-card-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 17rem;
+    text-align: center;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    line-height: 0.1rem;
+}
+
+.img-container__img {
+    max-width: 17rem;
+    height: 20rem;
+    background-position: center;
+    background-size: cover;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    object-fit: cover;
+    box-shadow: inset 0 0 8px #fff, inset 0 5px 11px rgb(104 180 155), 0 1px 21px -3px rgb(26 99 75);
+}
+
+.book-name {
+    font-size: 1.2rem;
+    line-height: 0.8rem;
+}
+
+.book-author {
+    font-size: 1.1rem;
+    line-height: 0.5rem;
+}
+
+.price {
+    font-size: 1.1rem;
+    line-height: 0.5rem;
+    font-weight: 600;
+}
+
+.publishing-house,
+.publication-date {
+    font-size: 1rem;
+    line-height: 0.5rem;
+}
+
+.buy-btn {
+    width: 13rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: var(--color-white-blue);
+    border-radius: 0.2rem;
+    background-color: var(--color-white-blue-dark);
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Redressed', cursive;
+    color: var(--color-green-dark);
+    box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
+}
