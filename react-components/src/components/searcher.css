@@ -1,0 +1,29 @@
+.form-input {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.searcher-input {
+    display: flex;
+    align-items: center;
+    width: 35rem;
+    border-radius: 0.5rem;
+    border: 0.2rem solid var(--color-green-dark);
+}
+
+.btn-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+    height: 3rem;
+    border: 0.2rem solid var(--color-green-dark);
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.btn-search:hover {
+    border-color: green;
+}
