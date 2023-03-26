@@ -1,15 +1,12 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-import { CardList } from './CardList';
+import { Outlet } from 'react-router-dom';
+import Header from './header/Header';
+import { CardList } from './card-list/CardList';
 
 function Layout() {
   return (
     <>
-      <header>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About</NavLink>
-      </header>
-
+      <Header />
       <main className="container" {...CardList}>
         <Outlet />
       </main>

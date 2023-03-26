@@ -9,3 +9,15 @@ export interface DataPropsType {
   publicationYear: string;
   isPopular: string;
 }
+
+export type SignInFormFields = {
+  username: string;
+  birthday: Date;
+};
+
+export interface SignInCardPropsType {
+  username: string;
+  birthday: string;
+  country: string;
+  avatar: string;
+}

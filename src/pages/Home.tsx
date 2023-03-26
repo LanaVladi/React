@@ -1,8 +1,8 @@
-import { Searcher } from '../components/Searcher';
+import { Searcher } from '../components/searcher/Searcher';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { CardList } from '../components/CardList';
-import '../components/cardList.css';
+import '../components/card-list/CardList';
+import { CardList } from './../components/card-list/CardList';
 
 class Home extends React.Component {
   render(): React.ReactNode {

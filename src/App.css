@@ -90,18 +90,6 @@ button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }
 
-header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 1.8rem;
-    font-weight: 700;
-    gap: 1.5rem;
-    padding: 1rem 0;
-    text-align: center;
-    background-color: var(--color-green);
-    width: 100%;
-}
 
 .footer {
     display: flex;

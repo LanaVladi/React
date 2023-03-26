@@ -1,10 +1,10 @@
 import React from 'react';
-import { data } from './../data';
-import { Card } from './Card';
-import '../components/cardList.css';
+import './cardList.css';
+import { data } from './../../data';
+import { Card } from './../Card';
 
 export class CardList extends React.Component {
-  render(): React.ReactNode {
+  render(): JSX.Element {
     return (
       <>
         <div className="books-container">
