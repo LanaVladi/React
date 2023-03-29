@@ -11,13 +11,10 @@ export interface DataPropsType {
 }
 
 export type SignInFormFields = {
-  username: string;
-  birthday: Date;
+  username?: string;
+  birthday?: string;
+  gender?: string;
+  country?: string;
+  avatar?: string;
+  remember?: string;
 };
-
-export interface SignInCardPropsType {
-  username: string;
-  birthday: string;
-  country: string;
-  avatar: string;
-}

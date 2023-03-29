@@ -1,22 +1,40 @@
 import React from 'react';
-import { SignInCardPropsType } from './../../../types';
+import { SignInFormFields } from './../../../types';
+import './sign-in-card.css';
 
-class SignInCard extends React.Component<SignInCardPropsType> {
-  render(): React.ReactNode {
-    const { username, birthday, country, avatar } = this.props;
-    return (
-      <>
-        <div className="sign-in-card">
-          <img className="img-container__img" src={avatar} alt={username} />
-          <div className="sign-in-card-details">
-            <h5 className="username">{username}</h5>
-            <p className="birthday">{birthday}</p>
-            <p className="country">{country}</p>
-          </div>
+type SignInCardProps = {
+  signInCard: SignInFormFields;
+};
+
+function SignInCard({ signInCard }: SignInCardProps): JSX.Element {
+  const { username, birthday, country, avatar, gender, remember } = signInCard;
+  return (
+    <>
+      <div className="sign-in-card">
+        <img className="avatar-container" src={avatar} alt={username} />
+        <div className="sign-in-card-details">
+          <p className="username">
+            <span style={{ fontWeight: 'bold' }}>Name:</span> {username}
+          </p>
+          <p className="birthday">
+            <span style={{ fontWeight: 'bold' }}>Birthday:</span> {birthday}
+          </p>
+          <p className="gender">
+            <span style={{ fontWeight: 'bold' }}>Gender: </span>
+            {gender}
+          </p>
+          <p className="country">
+            <span style={{ fontWeight: 'bold' }}>Country: </span>
+            {country}
+          </p>
+          <p className="remember">
+            <span style={{ fontWeight: 'bold' }}>Remember me: </span>
+            {remember}
+          </p>
         </div>
-      </>
-    );
-  }
+      </div>
+    </>
+  );
 }
 
-export default { SignInCard };
+export { SignInCard };

@@ -27,3 +27,7 @@
 .btn-search:hover {
     border-color: green;
 }
+
+.radio-btn {
+    display: flex;
+}
