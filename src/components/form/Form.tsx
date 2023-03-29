@@ -109,7 +109,7 @@ class Form extends React.Component<FormProps, FormValid> {
               placeholder="Enter your name"
               ref={this.textInputName}
             />
-            {!isValidUserName && <p className="form-warning">Enter your name!</p>}
+            {!isValidUserName && <p className="form-warning">Please enter correct name!</p>}
           </label>
 
           <label className="form-label">
@@ -153,8 +153,8 @@ class Form extends React.Component<FormProps, FormValid> {
                 <option value={'Japan'}>Japan</option>
                 <option value={'Australia'}>Australia</option>
               </select>
+              {!isValidCountry && <p className="form-warning">Please select country!</p>}
             </label>
-            {!isValidCountry && <p className="form-warning">Please select country!</p>}
           </div>
 
           <label className="form-label">
