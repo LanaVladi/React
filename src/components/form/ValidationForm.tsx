@@ -16,7 +16,7 @@ class ValidationForm {
     return currentDate.getDate() > dateOfBirth.getDate();
   };
 
-  radioBtnGenderValidate = (male: string | undefined, female: string | undefined): boolean =>
+  radioBtnGenderValidate = (male: boolean | undefined, female: boolean | undefined): boolean =>
     Boolean(male) || Boolean(female);
 
   dropDownListCountryValidate = (country: string | undefined): boolean =>

@@ -1,23 +1,11 @@
 import React from 'react';
-import { SignInFormFields } from 'types';
+import { FormProps, FormValid, SignInFormFields } from 'types';
 import { Confirmation } from './Confirmation';
 import './form.css';
 import { ValidationForm } from './ValidationForm';
 
-type FormProps = {
-  setSignInCards: (signInCard: SignInFormFields) => void;
-};
-
-type FormValid = {
-  isValidUserName: boolean;
-  isValidBirthday: boolean;
-  isValidGender: boolean;
-  isValidCountry: boolean;
-  isValidAvatar: boolean;
-  isDisplayConfirmation: boolean;
-};
-
 class Form extends React.Component<FormProps, FormValid> {
+  validationForm = new ValidationForm();
   textInputName: React.RefObject<HTMLInputElement>;
   dateInputBirthday: React.RefObject<HTMLInputElement>;
   radioBtnGenderMale: React.RefObject<HTMLInputElement>;
@@ -25,7 +13,6 @@ class Form extends React.Component<FormProps, FormValid> {
   dropDownListCountry: React.RefObject<HTMLSelectElement>;
   fileInputImage: React.RefObject<HTMLInputElement>;
   checkboxRemember: React.RefObject<HTMLInputElement>;
-  validationForm = new ValidationForm();
 
   constructor(props: SignInFormFields & FormProps) {
     super(props);
@@ -77,15 +64,15 @@ class Form extends React.Component<FormProps, FormValid> {
     }
   };
 
-  validateForm(dataCards: SignInFormFields): boolean {
-    const isValidUserName = this.validationForm.textInputNameValidate(dataCards.username);
-    const isValidBirthday = this.validationForm.dateInputBirthdayValidate(dataCards.birthday);
+  validateForm(cardsData: SignInFormFields): boolean {
+    const isValidUserName = this.validationForm.textInputNameValidate(cardsData.username);
+    const isValidBirthday = this.validationForm.dateInputBirthdayValidate(cardsData.birthday);
     const isValidGender = this.validationForm.radioBtnGenderValidate(
-      this.radioBtnGenderMale.current?.value,
-      this.radioBtnGenderFemale.current?.value
+      this.radioBtnGenderMale.current?.checked,
+      this.radioBtnGenderFemale.current?.checked
     );
-    const isValidCountry = this.validationForm.dropDownListCountryValidate(dataCards.country);
-    const isValidAvatar = this.validationForm.fileInputImageValidate(dataCards.avatar);
+    const isValidCountry = this.validationForm.dropDownListCountryValidate(cardsData.country);
+    const isValidAvatar = this.validationForm.fileInputImageValidate(cardsData.avatar);
 
     this.setState({
       isValidUserName,
@@ -117,11 +104,10 @@ class Form extends React.Component<FormProps, FormValid> {
             Name:
             <input
               className="form-input-sign-in name-input"
-              type={'text'}
+              type="text"
               name="username"
               placeholder="Enter your name"
               ref={this.textInputName}
-              required
             />
             {!isValidUserName && <p className="form-warning">Enter your name!</p>}
           </label>
@@ -133,7 +119,6 @@ class Form extends React.Component<FormProps, FormValid> {
               type="date"
               name="birthday"
               ref={this.dateInputBirthday}
-              required
             />
             {!isValidBirthday && <p className="form-warning">Please enter your birthday!</p>}
           </label>
@@ -158,7 +143,6 @@ class Form extends React.Component<FormProps, FormValid> {
                 defaultValue="default-country"
                 name="country"
                 className="form-input-sign-in"
-                id="countries"
                 ref={this.dropDownListCountry}
               >
                 <option disabled value="default-country">

@@ -18,3 +18,16 @@ export type SignInFormFields = {
   avatar?: string;
   remember?: string;
 };
+
+export type FormProps = {
+  setSignInCards: (signInCard: SignInFormFields) => void;
+};
+
+export type FormValid = {
+  isValidUserName: boolean;
+  isValidBirthday: boolean;
+  isValidGender: boolean;
+  isValidCountry: boolean;
+  isValidAvatar: boolean;
+  isDisplayConfirmation: boolean;
+};
