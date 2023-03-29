@@ -62,14 +62,14 @@ class Form extends React.Component<FormProps, FormValid> {
       remember: this.checkboxRemember.current?.checked ? 'yes' : 'no',
     };
 
-    this.props.setSignInCards({
-      ...cardsData,
-      avatar: URL.createObjectURL(this.fileInputImage.current?.files?.[0] as unknown as Blob),
-    });
-
     const isValidData = this.validateForm(cardsData);
     if (isValidData) {
+      this.props.setSignInCards({
+        ...cardsData,
+        avatar: URL.createObjectURL(this.fileInputImage.current?.files?.[0] as unknown as Blob),
+      });
       this.setState({ isDisplayConfirmation: true });
+
       setTimeout(() => {
         formData.reset();
         this.setState({ isDisplayConfirmation: false });
@@ -123,7 +123,7 @@ class Form extends React.Component<FormProps, FormValid> {
               ref={this.textInputName}
               required
             />
-            {!isValidUserName && <span className="form-warning">Enter your name!</span>}
+            {!isValidUserName && <p className="form-warning">Enter your name!</p>}
           </label>
 
           <label className="form-label">
