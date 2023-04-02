@@ -1,0 +1,21 @@
+.sign-in-card {
+    width: 20rem;
+    height: auto;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: solid 0.2rem var(--color-gray);
+    line-height: 2rem;
+}
+
+.avatar-container {
+    width: 13rem;
+    height: 14rem;
+    border-radius: 0.5rem;
+    border: solid 0.2rem var(--color-gray);
+    box-shadow: inset 0 0 1px #fff, inset 0 1px 7px #ebebeb, 0 3px 6px -3px #bbb;
+}
+
+.sign-in-card-details {
+    font-size: 1.5rem;
+    text-align: start;
+}
