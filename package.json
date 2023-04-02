@@ -9,12 +9,13 @@
     "preview": "vite preview",
     "lint": "eslint ./src",
     "format": "npx eslint ./src --fix",
-    "test": "vitest",
+    "test": "vitest run --coverage",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-router-dom": "^6.9.0"
   },
   "devDependencies": {

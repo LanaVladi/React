@@ -1,19 +1,22 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './header.css';
 
-class Header extends React.Component {
-  state = { path: window.location.pathname.slice(1) };
-  render(): React.ReactNode {
-    return (
-      <header>
-        <h1>{this.state.path}</h1>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/form">Form</NavLink>
-      </header>
-    );
-  }
+function Header() {
+  const location = useLocation();
+  const currentLocation =
+    location.pathname.slice(1) === ''
+      ? location.pathname.replace('/', 'home').toUpperCase()
+      : location.pathname.slice(1).toUpperCase();
+
+  return (
+    <header>
+      <h1>{currentLocation}</h1>
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/about">About us</NavLink>
+      <NavLink to="/form">Form</NavLink>
+    </header>
+  );
 }
 
-export default Header;
+export { Header };

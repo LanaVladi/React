@@ -1,192 +1,117 @@
-import React from 'react';
-import { FormProps, FormValid, SignInFormFields } from 'types';
+import React, { FC } from 'react';
+import { FormProps, SignInFormFields } from 'types';
 import { Confirmation } from './Confirmation';
 import './form.css';
-import { ValidationForm } from './ValidationForm';
+import { useForm } from 'react-hook-form';
 
-class Form extends React.Component<FormProps, FormValid> {
-  validationForm = new ValidationForm();
-  textInputName: React.RefObject<HTMLInputElement>;
-  dateInputBirthday: React.RefObject<HTMLInputElement>;
-  radioBtnGenderMale: React.RefObject<HTMLInputElement>;
-  radioBtnGenderFemale: React.RefObject<HTMLInputElement>;
-  dropDownListCountry: React.RefObject<HTMLSelectElement>;
-  fileInputImage: React.RefObject<HTMLInputElement>;
-  checkboxRemember: React.RefObject<HTMLInputElement>;
+const defaultValues: SignInFormFields = {
+  username: '',
+  birthday: '',
+  gender: '',
+  country: '',
+  remember: false,
+  avatar: [],
+};
+const Form: FC<FormProps> = ({ addNewCard }) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitSuccessful, errors },
+  } = useForm<SignInFormFields, FormProps>({
+    defaultValues,
+    mode: 'onSubmit',
+    reValidateMode: 'onSubmit',
+  });
 
-  constructor(props: SignInFormFields & FormProps) {
-    super(props);
-    this.textInputName = React.createRef();
-    this.dateInputBirthday = React.createRef();
-    this.radioBtnGenderMale = React.createRef();
-    this.radioBtnGenderFemale = React.createRef();
-    this.dropDownListCountry = React.createRef();
-    this.fileInputImage = React.createRef();
-    this.checkboxRemember = React.createRef();
-
-    this.state = {
-      isValidUserName: true,
-      isValidBirthday: true,
-      isValidGender: true,
-      isValidCountry: true,
-      isValidAvatar: true,
-      isDisplayConfirmation: false,
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = event.currentTarget;
-
-    const cardsData: SignInFormFields = {
-      username: this.textInputName.current?.value,
-      birthday: this.dateInputBirthday.current?.value,
-      gender: this.radioBtnGenderMale.current?.checked ? 'male' : 'female',
-      country: this.dropDownListCountry.current?.value,
-      avatar: this.fileInputImage.current?.value,
-      remember: this.checkboxRemember.current?.checked ? 'yes' : 'no',
-    };
-
-    const isValidData = this.validateForm(cardsData);
-    if (isValidData) {
-      this.props.setSignInCards({
-        ...cardsData,
-        avatar: URL.createObjectURL(this.fileInputImage.current?.files?.[0] as unknown as Blob),
-      });
-      this.setState({ isDisplayConfirmation: true });
-
-      setTimeout(() => {
-        formData.reset();
-        this.setState({ isDisplayConfirmation: false });
-      }, 2500);
-    }
+  const onSubmit = (values: SignInFormFields) => {
+    addNewCard(values);
   };
 
-  validateForm(cardsData: SignInFormFields): boolean {
-    const isValidUserName = this.validationForm.textInputNameValidate(cardsData.username);
-    const isValidBirthday = this.validationForm.dateInputBirthdayValidate(cardsData.birthday);
-    const isValidGender = this.validationForm.radioBtnGenderValidate(
-      this.radioBtnGenderMale.current?.checked,
-      this.radioBtnGenderFemale.current?.checked
-    );
-    const isValidCountry = this.validationForm.dropDownListCountryValidate(cardsData.country);
-    const isValidAvatar = this.validationForm.fileInputImageValidate(cardsData.avatar);
+  return (
+    <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
+      <label className="form-label">Name: </label>
+      <input
+        type="text"
+        placeholder="Enter your name"
+        {...register('username', {
+          required: true,
+          minLength: 4,
+          pattern: /^([a-zA-ZА-Яа-я '-])+$/,
+        })}
+      />
+      {errors.username && (
+        <p className="form-warning">
+          Please enter correct name! Length of name should be more 3 characters
+        </p>
+      )}
+      <label className="form-label">Birthday: </label>
+      <input type="date" {...register('birthday', { valueAsDate: true, required: true })} />
+      {errors.birthday && <p className="form-warning">Please enter correct birthday!</p>}
 
-    this.setState({
-      isValidUserName,
-      isValidBirthday,
-      isValidGender,
-      isValidCountry,
-      isValidAvatar,
-    });
+      <div className="radio-btn">
+        <label className="form-label">Male</label>
+        <input type="radio" value="Male" {...register('gender', { required: true })} />
+        <label className="form-label">Female</label>
+        <input type="radio" value="Female" {...register('gender', { required: true })} />
+        {errors.gender && <p className="form-warning">Please select gender!</p>}
+      </div>
 
-    const isValidData =
-      isValidUserName && isValidBirthday && isValidGender && isValidCountry && isValidAvatar;
-    return isValidData;
-  }
+      <div>
+        <label className="form-label">
+          Choose a country:
+          <select
+            defaultValue="Select country"
+            className="form-input-sign-in"
+            {...register('country', { required: true })}
+          >
+            <option value="" disabled>
+              Select country
+            </option>
+            <option value={'Uzbekistan'}>Uzbekistan</option>
+            <option value={'Belarus'}>Belarus</option>
+            <option value={'Japan'}>Japan</option>
+            <option value={'Australia'}>Australia</option>
+          </select>
+          {errors.country && <p className="form-warning">Please select country!</p>}
+        </label>
+      </div>
 
-  render(): React.ReactNode {
-    const {
-      isValidUserName,
-      isValidBirthday,
-      isValidGender,
-      isValidCountry,
-      isValidAvatar,
-      isDisplayConfirmation,
-    } = this.state;
-    return (
-      <>
-        <form className="sign-in-form" onSubmit={this.handleSubmit}>
-          <h1 className="sign-in-title">Sign in</h1>
-          <label className="form-label">
-            Name:
-            <input
-              className="form-input-sign-in name-input"
-              type="text"
-              name="username"
-              placeholder="Enter your name"
-              ref={this.textInputName}
-            />
-            {!isValidUserName && <p className="form-warning">Please enter correct name!</p>}
-          </label>
+      <label className="form-label">
+        Add image:
+        <input
+          className="form-input-sign-in"
+          type="file"
+          {...register('avatar', {
+            required: true,
+            validate: {
+              fileType: (value) =>
+                (value !== null &&
+                  value !== undefined &&
+                  value.length > 0 &&
+                  value[0].type.endsWith('/jpeg')) ||
+                'This file is not image  type',
+            },
+          })}
+          accept="image/**"
+        />
+        {errors.avatar && <p className="form-warning">Please upload image with jpeg type!</p>}
+      </label>
 
-          <label className="form-label">
-            Birthday:
-            <input
-              className="form-input-sign-in date-input"
-              type="date"
-              name="birthday"
-              ref={this.dateInputBirthday}
-            />
-            {!isValidBirthday && <p className="form-warning">Please enter your birthday!</p>}
-          </label>
+      <label className="form-label">
+        Remember me:
+        <input
+          className="form-input-sign-in checkbox-input"
+          type="checkbox"
+          {...register('remember')}
+        />
+      </label>
 
-          <div className="radio-btn">
-            <label className="form-label">
-              <input type="radio" value="Male" name="gender" ref={this.radioBtnGenderMale} />
-              Male
-            </label>
-
-            <label className="form-label">
-              <input type="radio" value="Female" name="gender" ref={this.radioBtnGenderFemale} />
-              Female
-            </label>
-            {!isValidGender && <p className="form-warning">Please select gender!</p>}
-          </div>
-
-          <div>
-            <label className="form-label">
-              Choose a country:
-              <select
-                defaultValue="default-country"
-                name="country"
-                className="form-input-sign-in"
-                ref={this.dropDownListCountry}
-              >
-                <option disabled value="default-country">
-                  Select country
-                </option>
-                <option value={'Uzbekistan'}>Uzbekistan</option>
-                <option value={'Belarus'}>Belarus</option>
-                <option value={'Japan'}>Japan</option>
-                <option value={'Australia'}>Australia</option>
-              </select>
-              {!isValidCountry && <p className="form-warning">Please select country!</p>}
-            </label>
-          </div>
-
-          <label className="form-label">
-            Add image:
-            <input
-              className="form-input-sign-in"
-              type="file"
-              name="avatar"
-              accept="image/**"
-              ref={this.fileInputImage}
-            />
-            {!isValidAvatar && <p className="form-warning">Please upload image!</p>}
-          </label>
-
-          <label className="form-label">
-            Remember me:
-            <input
-              className="form-input-sign-in checkbox-input"
-              type="checkbox"
-              name="remember"
-              ref={this.checkboxRemember}
-            />
-          </label>
-
-          <button className="btn-sign-in" type="submit">
-            Sign in
-          </button>
-          {isDisplayConfirmation && <Confirmation />}
-        </form>
-      </>
-    );
-  }
-}
+      <button className="btn-sign-in" type="submit">
+        Sign in
+      </button>
+      {isSubmitSuccessful && <Confirmation />}
+    </form>
+  );
+};
 
 export { Form };

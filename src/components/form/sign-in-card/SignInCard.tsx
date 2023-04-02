@@ -11,13 +11,18 @@ function SignInCard({ signInCard }: SignInCardProps): JSX.Element {
   return (
     <>
       <div className="sign-in-card">
-        <img className="avatar-container" src={avatar} alt={username} />
+        <img
+          className="avatar-container"
+          src={URL.createObjectURL(avatar[0] as unknown as Blob)}
+          alt={username}
+        />
         <div className="sign-in-card-details">
           <p className="username">
             <span style={{ fontWeight: 'bold' }}>Name:</span> {username}
           </p>
           <p className="birthday">
-            <span style={{ fontWeight: 'bold' }}>Birthday:</span> {birthday}
+            <span style={{ fontWeight: 'bold' }}>Birthday:</span>{' '}
+            {new Date(birthday).toISOString().slice(0, 10)}
           </p>
           <p className="gender">
             <span style={{ fontWeight: 'bold' }}>Gender: </span>
@@ -29,7 +34,7 @@ function SignInCard({ signInCard }: SignInCardProps): JSX.Element {
           </p>
           <p className="remember">
             <span style={{ fontWeight: 'bold' }}>Remember me: </span>
-            {remember}
+            {JSON.stringify(remember)}
           </p>
         </div>
       </div>
