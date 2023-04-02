@@ -14,6 +14,7 @@ describe('App', () => {
     expect(
       screen.getByRole('heading', {
         level: 1,
+        name: 'About us',
       })
     ).toHaveTextContent('About us');
   });
