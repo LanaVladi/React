@@ -19,3 +19,33 @@ describe('App', () => {
     ).toHaveTextContent('About us');
   });
 });
+
+describe('App', () => {
+  it('should have home link', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(
+      screen.getByRole('link', {
+        name: 'Home',
+      })
+    ).toHaveTextContent('Home');
+  });
+});
+
+describe('App', () => {
+  it('should have form link', () => {
+    render(
+      <MemoryRouter initialEntries={['/form']}>
+        <App />
+      </MemoryRouter>
+    );
+    expect(
+      screen.getByRole('link', {
+        name: 'Form',
+      })
+    ).toHaveTextContent('Form');
+  });
+});
