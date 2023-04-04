@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { FormProps, SignInFormFields } from 'types';
 import { Confirmation } from './Confirmation';
 import './form.css';
@@ -10,12 +10,13 @@ const defaultValues: SignInFormFields = {
   gender: '',
   country: '',
   remember: false,
-  avatar: [],
+  avatar: '',
 };
 const Form: FC<FormProps> = ({ addNewCard }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { isSubmitSuccessful, errors },
   } = useForm<SignInFormFields, FormProps>({
     defaultValues,
@@ -24,8 +25,17 @@ const Form: FC<FormProps> = ({ addNewCard }) => {
   });
 
   const onSubmit = (values: SignInFormFields) => {
-    addNewCard(values);
+    addNewCard({
+      ...values,
+      avatar: URL.createObjectURL(values.avatar?.[0] as unknown as Blob),
+    });
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <form className="sign-in-form" onSubmit={handleSubmit(onSubmit)}>
@@ -83,14 +93,6 @@ const Form: FC<FormProps> = ({ addNewCard }) => {
           type="file"
           {...register('avatar', {
             required: true,
-            validate: {
-              fileType: (value) =>
-                (value !== null &&
-                  value !== undefined &&
-                  value.length > 0 &&
-                  value[0].type.endsWith('/jpeg')) ||
-                'This file is not image  type',
-            },
           })}
           accept="image/**"
         />

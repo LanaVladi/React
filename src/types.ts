@@ -15,7 +15,7 @@ export type SignInFormFields = {
   birthday: string;
   gender: string;
   country: string;
-  avatar: File[];
+  avatar: string;
   remember: boolean;
 };
 

@@ -11,11 +11,7 @@ function SignInCard({ signInCard }: SignInCardProps): JSX.Element {
   return (
     <>
       <div className="sign-in-card">
-        <img
-          className="avatar-container"
-          src={URL.createObjectURL(avatar[0] as unknown as Blob)}
-          alt={username}
-        />
+        <img className="avatar-container" src={avatar} alt={username} />
         <div className="sign-in-card-details">
           <p className="username">
             <span style={{ fontWeight: 'bold' }}>Name:</span> {username}
