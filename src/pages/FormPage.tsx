@@ -24,7 +24,7 @@ function FormPage() {
       <h2>Cards</h2>
       <div className="cards-container">
         {signInCardsList.map((card: SignInFormFields) => (
-          <SignInCard key={card.username} signInCard={card} />
+          <SignInCard key={card.avatar} signInCard={card} />
         ))}
       </div>
     </>
