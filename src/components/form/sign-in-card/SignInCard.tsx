@@ -17,8 +17,7 @@ function SignInCard({ signInCard }: SignInCardProps): JSX.Element {
             <span style={{ fontWeight: 'bold' }}>Name:</span> {username}
           </p>
           <p className="birthday">
-            <span style={{ fontWeight: 'bold' }}>Birthday:</span>{' '}
-            {new Date(birthday).toISOString().slice(0, 10)}
+            <span style={{ fontWeight: 'bold' }}>Birthday:</span> {birthday}
           </p>
           <p className="gender">
             <span style={{ fontWeight: 'bold' }}>Gender: </span>

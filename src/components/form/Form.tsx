@@ -55,7 +55,7 @@ const Form: FC<FormProps> = ({ addNewCard }) => {
         </p>
       )}
       <label className="form-label">Birthday: </label>
-      <input type="date" {...register('birthday', { valueAsDate: true, required: true })} />
+      <input type="date" {...register('birthday', { required: true })} />
       {errors.birthday && <p className="form-warning">Please enter correct birthday!</p>}
 
       <div className="radio-btn">
