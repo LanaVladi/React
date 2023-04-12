@@ -1,32 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import './searcher.css';
 
-function Searcher() {
-  const [inputText, setInputText] = useState<string>(localStorage.getItem('request') || '');
-  const inputValueRef = React.useRef<string>();
+type SearcherProps = {
+  startSearch: (request: string) => void;
+};
+
+export function Searcher({ startSearch }: SearcherProps) {
+  const [inputText, setInputText] = useState<string>('');
+
+  const onChangeSearcher = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputText(event.target.value);
+  };
 
   useEffect(() => {
-    inputValueRef.current = inputText;
-  }, [inputText]);
-
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('request', inputValueRef.current || '');
-    };
+    const saveRequest = localStorage.getItem('request')
+      ? localStorage.getItem('request')
+      : setInputText(inputText);
+    setInputText(saveRequest || '');
+    startSearch(saveRequest || '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleSubmitForm = async (event: React.FormEvent) => {
+    event.preventDefault();
+    localStorage.setItem('request', inputText || '');
+    startSearch(inputText);
+  };
 
   return (
     <>
-      <input
-        className="searcher-input"
-        type={'text'}
-        placeholder="Search by author"
-        value={inputText}
-        onChange={(event) => setInputText(event.target.value)}
-      ></input>
-      <button className="btn-search">Search</button>
+      <form className="form-input" onSubmit={handleSubmitForm}>
+        <input
+          className="searcher-input"
+          type={'text'}
+          placeholder="Search by full name"
+          value={inputText}
+          onChange={onChangeSearcher}
+        ></input>
+        <button className="btn-search">Search</button>
+      </form>
     </>
   );
 }
-
-export { Searcher };

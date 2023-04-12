@@ -22,7 +22,7 @@ function FormPage() {
       <Form addNewCard={addNewCard} />
 
       <h2>Cards</h2>
-      <div className="cards-container">
+      <div className="form-cards-container">
         {signInCardsList.map((card: SignInFormFields) => (
           <SignInCard key={card.avatar} signInCard={card} />
         ))}
