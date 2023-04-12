@@ -5,9 +5,10 @@ import './modal.css';
 export type modalCardProps = {
   openedCard: CardType | undefined;
   setActiveModal: (status: boolean) => void;
+  displayIndicator: boolean;
 };
 
-function Modal({ openedCard, setActiveModal }: modalCardProps) {
+function Modal({ openedCard, setActiveModal, displayIndicator }: modalCardProps) {
   const closeModal = () => {
     setActiveModal(false);
   };
@@ -20,15 +21,21 @@ function Modal({ openedCard, setActiveModal }: modalCardProps) {
           <button className="modal-close-btn" onClick={closeModal}>
             X
           </button>
-          <div className="modal-content">
-            <img className="modal-img-container" src={openedCard?.image} alt={openedCard?.name} />
-            <div className="modal-card-details">
-              <h5 className="modal-card-name">{openedCard?.name}</h5>
-              <p className="modal-card-species">{`Species: ` + openedCard?.species}</p>
-              <p className="modal-card-gender">{`Gender: ` + openedCard?.gender}</p>
-              <p className="modal-card-status">{`Status: ` + openedCard?.status}</p>
+          {displayIndicator ? (
+            <div className="loading-indicator">Data is loading...</div>
+          ) : openedCard ? (
+            <div className="modal-content">
+              <img className="modal-img-container" src={openedCard?.image} alt={openedCard?.name} />
+              <div className="modal-card-details">
+                <h5 className="modal-card-name">{openedCard?.name}</h5>
+                <p className="modal-card-species">{`Species: ` + openedCard?.species}</p>
+                <p className="modal-card-gender">{`Gender: ` + openedCard?.gender}</p>
+                <p className="modal-card-status">{`Status: ` + openedCard?.status}</p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="card-not-found">CARD NOT FOUND! PLEASE TRY AGAIN!</div>
+          )}
         </div>
       </div>
     </>

@@ -7,25 +7,40 @@ import { getAPIDataById } from '../../api';
 
 export type CardListProps = {
   cards: partialCardInfo[];
+  isActiveIndicator: boolean;
 };
 
-export function CardList({ cards }: CardListProps) {
+export function CardList({ cards, isActiveIndicator }: CardListProps) {
   const [activeModal, setActiveModal] = useState(false);
   const [openedCard, setOpenedCard] = useState<CardType>();
+  const [activeIndicator, setActiveIndicator] = useState(false);
 
   const displayModal = (id: number) => async () => {
     setActiveModal(true);
+    setActiveIndicator(true);
     const dataModalCard = await getAPIDataById(id);
     setOpenedCard(dataModalCard);
+    setActiveIndicator(false);
   };
 
   return (
     <>
       <div className="cards-container ">
-        {cards.map((card) => (
-          <Card card={card} key={card.name} onClick={displayModal} />
-        ))}
-        {activeModal && <Modal setActiveModal={setActiveModal} openedCard={openedCard} />}
+        {isActiveIndicator ? (
+          <div className="loading-indicator">Data is loading...</div>
+        ) : cards.length === 0 ? (
+          <div className="card-not-found">CARD NOT FOUND! PLEASE TRY AGAIN!</div>
+        ) : (
+          cards.map((card) => <Card card={card} key={card.name} onClick={displayModal} />)
+        )}
+
+        {activeModal && (
+          <Modal
+            displayIndicator={activeIndicator}
+            setActiveModal={setActiveModal}
+            openedCard={openedCard}
+          />
+        )}
       </div>
     </>
   );

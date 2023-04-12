@@ -81,3 +81,11 @@
     font-size: 3rem;
     line-height: 0;
 }
+
+.loading-indicator {
+    font-size: 4rem;
+    color: red;
+    font-weight: 600;
+    transform: scale(2);
+    box-shadow: inset 0 0 8px #fff, inset 0 5px 11px rgb(104 180 155), 0 1px 21px -3px rgb(26 99 75);
+}

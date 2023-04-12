@@ -16,7 +16,7 @@ function Home() {
     if (request === '') {
       setSearchRequest(characters);
     } else if (character.length === 0) {
-      alert('CARD NOT FOUND! PLEASE TRY AGAIN!');
+      <div className="card-not-found"></div>;
     } else {
       setSearchRequest(character);
     }
@@ -27,7 +27,9 @@ function Home() {
       <h1>Home</h1>
       <Link to="/"></Link>
       <div>{<Searcher startSearch={startSearch} />}</div>
-      <section className="cards-list-container">{<CardList cards={searchRequest} />}</section>
+      <section className="cards-list-container">
+        {<CardList cards={searchRequest} isActiveIndicator={false} />}
+      </section>
     </>
   );
 }
