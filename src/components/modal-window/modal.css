@@ -1,0 +1,83 @@
+.modal-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+    cursor: pointer;
+}
+
+.modal-wrapper {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.modal {
+    position: relative;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.modal-close-btn {
+    position: absolute;
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 600;
+    top: 1rem;
+    right: 1rem;
+    border: solid 0.5rem salmon;
+}
+
+.modal-close-btn:hover {
+    transform: scale(1.1);
+    border: solid 0.5rem #87d270;
+    background-color: #adcdc3;
+}
+
+.modal-content {
+    width: 50rem;
+    height: 50rem;
+    background-color: aliceblue;
+    border-radius: 1.5rem;
+    padding: 3rem;
+}
+
+.modal-img-container {
+    width: 25rem;
+    height: 25rem;
+    background-position: center;
+    background-size: cover;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    object-fit: cover;
+    box-shadow: inset 0 0 8px #fff, inset 0 5px 11px rgb(104 180 155), 0 1px 21px -3px rgb(26 99 75);
+}
+
+.modal-card-details {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background-color: transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 3rem;
+    line-height: 2.5rem;
+    word-break: break-word;
+}
+
+.modal-card-name {
+    font-size: 3rem;
+    line-height: 0;
+}
