@@ -27,6 +27,11 @@
     cursor: pointer;
 }
 
+.card:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+
 .card-details {
     display: flex;
     flex-direction: column;
@@ -74,7 +79,7 @@
 
 .card-not-found {
     display: flex;
-    width: 30vw;
+    max-width: 30vw;
     align-items: center;
     font-size: 3rem;
     font-weight: 700;

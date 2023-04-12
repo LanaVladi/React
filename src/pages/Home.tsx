@@ -11,7 +11,9 @@ function Home() {
 
   const startSearch = async (request: string) => {
     const characters = await getAPIData(request);
-    const character = characters.filter((card) => card.name === request);
+    const character = characters.filter(
+      (card) => card.name.toLowerCase() === request.toLowerCase()
+    );
 
     if (request === '') {
       setSearchRequest(characters);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import './cardList.css';
 import { Card } from './../Card';
 import { CardType, partialCardInfo } from 'types';
@@ -27,7 +27,9 @@ export function CardList({ cards, isActiveIndicator }: CardListProps) {
     <>
       <div className="cards-container ">
         {isActiveIndicator ? (
-          <div className="loading-indicator">Data is loading...</div>
+          <Suspense
+            fallback={<div className="loading-indicator">Data is loading...</div>}
+          ></Suspense>
         ) : cards.length === 0 ? (
           <div className="card-not-found">CARD NOT FOUND! PLEASE TRY AGAIN!</div>
         ) : (
