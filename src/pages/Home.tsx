@@ -16,7 +16,7 @@ function Home() {
     if (request === '') {
       setSearchRequest(characters);
     } else if (character.length === 0) {
-      <div className="card-not-found"></div>;
+      alert('CARD NOT FOUND! PLEASE TRY AGAIN!');
     } else {
       setSearchRequest(character);
     }
