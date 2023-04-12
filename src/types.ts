@@ -11,23 +11,14 @@ export interface DataPropsType {
 }
 
 export type SignInFormFields = {
-  username?: string;
-  birthday?: string;
-  gender?: string;
-  country?: string;
-  avatar?: string;
-  remember?: string;
+  username: string;
+  birthday: string;
+  gender: string;
+  country: string;
+  avatar: string;
+  remember: boolean;
 };
 
 export type FormProps = {
-  setSignInCards: (signInCard: SignInFormFields) => void;
-};
-
-export type FormValid = {
-  isValidUserName: boolean;
-  isValidBirthday: boolean;
-  isValidGender: boolean;
-  isValidCountry: boolean;
-  isValidAvatar: boolean;
-  isDisplayConfirmation: boolean;
+  addNewCard: (card: SignInFormFields) => void;
 };

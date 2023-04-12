@@ -1,38 +1,32 @@
-import React from 'react';
-import { DataPropsType } from 'types';
+import React, { useEffect, useState } from 'react';
 import './searcher.css';
 
-interface StateType {
-  textInput: string;
-}
+function Searcher() {
+  const [inputText, setInputText] = useState<string>(localStorage.getItem('request') || '');
+  const inputValueRef = React.useRef<string>();
 
-class Searcher extends React.Component<DataPropsType, StateType> {
-  textInput = React.createRef();
-  state = { textInput: localStorage.getItem('request') || '' };
+  useEffect(() => {
+    inputValueRef.current = inputText;
+  }, [inputText]);
 
-  componentWillUnmount(): void {
-    localStorage.setItem('request', this.state.textInput);
-  }
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('request', inputValueRef.current || '');
+    };
+  }, []);
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    this.setState({ textInput: event.target.value });
-  };
-
-  render(): React.ReactNode {
-    return (
-      <>
-        <input
-          className="searcher-input"
-          type={'text'}
-          placeholder="Search by author"
-          value={this.state.textInput}
-          onChange={this.handleChange}
-        ></input>
-        <button className="btn-search">Search</button>
-      </>
-    );
-  }
+  return (
+    <>
+      <input
+        className="searcher-input"
+        type={'text'}
+        placeholder="Search by author"
+        value={inputText}
+        onChange={(event) => setInputText(event.target.value)}
+      ></input>
+      <button className="btn-search">Search</button>
+    </>
+  );
 }
 
 export { Searcher };

@@ -90,6 +90,10 @@ button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 }
 
+.go-home {
+    font-size: 3rem;
+    font-weight: 800;
+}
 
 .footer {
     display: flex;

@@ -29,7 +29,7 @@ function SignInCard({ signInCard }: SignInCardProps): JSX.Element {
           </p>
           <p className="remember">
             <span style={{ fontWeight: 'bold' }}>Remember me: </span>
-            {remember}
+            {JSON.stringify(remember)}
           </p>
         </div>
       </div>
