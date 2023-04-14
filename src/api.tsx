@@ -1,17 +1,23 @@
-import { CardType } from 'types';
+import { baseUrl } from './constants';
 
-const getAPIData = async (name: string): Promise<CardType[]> => {
-  const baseUrl = `https://rickandmortyapi.com/api/character/?${name}`;
-  const response = await fetch(baseUrl);
-  const data = await response.json();
-  return data.results;
+const getAPIData = async (queries: string) => {
+  try {
+    const response = await fetch(`${baseUrl}?name=${queries}`);
+    const data = await response.json();
+    return response.status === 200 ? data.results : '';
+  } catch {
+    return console.error('CARD NOT FOUND! PLEASE TRY AGAIN!');
+  }
 };
 
-const getAPIDataById = async (id: number): Promise<CardType> => {
-  const baseUrl = `https://rickandmortyapi.com/api/character/${id}`;
-  const response = await fetch(baseUrl);
-  const data = await response.json();
-  return data;
+const getAPIDataById = async (id: number) => {
+  try {
+    const response = await fetch(`${baseUrl}${id}`);
+    const data = await response.json();
+    return data;
+  } catch {
+    return console.error('CARD NOT FOUND! PLEASE TRY AGAIN!');
+  }
 };
 
 export { getAPIData, getAPIDataById };

@@ -11,16 +11,21 @@ function Home() {
 
   const startSearch = async (request: string) => {
     const characters = await getAPIData(request);
-    const character = characters.filter(
-      (card) => card.name.toLowerCase() === request.toLowerCase()
-    );
-
-    if (request === '') {
-      setSearchRequest(characters);
-    } else if (character.length === 0) {
-      alert('CARD NOT FOUND! PLEASE TRY AGAIN!');
-    } else {
-      setSearchRequest(character);
+    try {
+      const character = characters.filter((card: { name: string }) =>
+        card.name.toLowerCase().includes(request.toLowerCase())
+      );
+      if (request === '') {
+        setSearchRequest(characters);
+      } else if (character.length === 0) {
+        console.log('CARD NOT FOUND! PLEASE TRY AGAIN!');
+      } else if (character) {
+        setSearchRequest(character);
+      } else {
+        setSearchRequest(character);
+      }
+    } catch {
+      console.error();
     }
   };
 

@@ -33,7 +33,7 @@ export function CardList({ cards, isActiveIndicator }: CardListProps) {
         ) : cards.length === 0 ? (
           <div className="card-not-found">CARD NOT FOUND! PLEASE TRY AGAIN!</div>
         ) : (
-          cards.map((card) => <Card card={card} key={card.name} onClick={displayModal} />)
+          cards.map((card) => <Card card={card} key={card.id} onClick={displayModal} />)
         )}
 
         {activeModal && (
