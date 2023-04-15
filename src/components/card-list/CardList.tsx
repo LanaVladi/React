@@ -4,13 +4,16 @@ import { Card } from './../Card';
 import { CardType, partialCardInfo } from 'types';
 import { Modal } from '../../components/modal-window/Modal';
 import { getAPIDataById } from '../../api';
+import { NotFound } from '../NotFound';
+import { LoadingIndicator } from '../../components/LoadingIndicator';
 
 export type CardListProps = {
   cards: partialCardInfo[];
   isActiveIndicator: boolean;
+  isNotFoundError: boolean;
 };
 
-export function CardList({ cards, isActiveIndicator }: CardListProps) {
+export function CardList({ cards, isActiveIndicator, isNotFoundError }: CardListProps) {
   const [activeModal, setActiveModal] = useState(false);
   const [openedCard, setOpenedCard] = useState<CardType>();
   const [activeIndicator, setActiveIndicator] = useState(false);
@@ -27,11 +30,9 @@ export function CardList({ cards, isActiveIndicator }: CardListProps) {
     <>
       <div className="cards-container ">
         {isActiveIndicator ? (
-          <Suspense
-            fallback={<div className="loading-indicator">Data is loading...</div>}
-          ></Suspense>
-        ) : cards.length === 0 ? (
-          <div className="card-not-found">CARD NOT FOUND! PLEASE TRY AGAIN!</div>
+          <Suspense fallback={<LoadingIndicator />}></Suspense>
+        ) : isNotFoundError ? (
+          <NotFound />
         ) : (
           cards.map((card) => <Card card={card} key={card.id} onClick={displayModal} />)
         )}
