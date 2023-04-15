@@ -1,6 +1,8 @@
 import React from 'react';
 import { CardType } from 'types';
 import './modal.css';
+import { LoadingIndicator } from '../loading-indicator/LoadingIndicator';
+import { NotFound } from '../not-found/NotFound';
 
 export type modalCardProps = {
   openedCard: CardType | undefined;
@@ -22,7 +24,7 @@ function Modal({ openedCard, setActiveModal, displayIndicator }: modalCardProps)
             X
           </button>
           {displayIndicator ? (
-            <div className="loading-indicator">Data is loading...</div>
+            <LoadingIndicator />
           ) : openedCard ? (
             <div className="modal-content">
               <img className="modal-img-container" src={openedCard?.image} alt={openedCard?.name} />
@@ -34,7 +36,7 @@ function Modal({ openedCard, setActiveModal, displayIndicator }: modalCardProps)
               </div>
             </div>
           ) : (
-            <div className="card-not-found">CARD NOT FOUND! PLEASE TRY AGAIN!</div>
+            <NotFound />
           )}
         </div>
       </div>
