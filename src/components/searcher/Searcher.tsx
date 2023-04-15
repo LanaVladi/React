@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './searcher.css';
 
 type SearcherProps = {
@@ -7,6 +7,11 @@ type SearcherProps = {
 
 export function Searcher({ startSearch }: SearcherProps) {
   const [inputText, setInputText] = useState<string>('');
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
 
   const onChangeSearcher = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
@@ -36,6 +41,7 @@ export function Searcher({ startSearch }: SearcherProps) {
           placeholder="Search by full name"
           value={inputText}
           onChange={onChangeSearcher}
+          ref={inputRef}
         ></input>
         <button className="btn-search">Search</button>
       </form>
