@@ -4,9 +4,9 @@ import './confirmation.css';
 function Confirmation(): JSX.Element {
   return (
     <div className="confirmation-card">
-      <p className="confirmation">
-        <span style={{ fontWeight: 'bold' }}>Data has been saved!</span>
-      </p>
+      <h3 className="confirmation" style={{ fontWeight: 'bold' }}>
+        Data has been saved!
+      </h3>
     </div>
   );
 }
