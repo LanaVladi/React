@@ -3,16 +3,15 @@
 }
 
 .cards-container {
-    display: grid;
-    max-width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
     margin: 0 auto;
     margin-top: 4rem;
     border-radius: 0.5rem;
-    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
     column-gap: 5rem;
-    row-gap: 5rem;
 }
 
 .card {
@@ -75,13 +74,4 @@
 .card-episode {
     font-size: 1rem;
     line-height: 0.5rem;
-}
-
-.card-not-found {
-    display: flex;
-    max-width: 30vw;
-    align-items: center;
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
 }

@@ -1,11 +1,11 @@
-import React, { Suspense, useState } from 'react';
+import React, { useState } from 'react';
 import './cardList.css';
 import { Card } from './../Card';
 import { CardType, partialCardInfo } from 'types';
 import { Modal } from '../modal/Modal';
 import { getAPIDataById } from '../../api';
-import { NotFound } from '../NotFound';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { NotFound } from '../not-found/NotFound';
+import { LoadingIndicator } from '../loading-indicator/LoadingIndicator';
 
 export type CardListProps = {
   cards: partialCardInfo[];
@@ -29,10 +29,10 @@ export function CardList({ cards, isActiveIndicator, isNotFoundError }: CardList
   return (
     <>
       <div className="cards-container ">
-        {isActiveIndicator ? (
-          <Suspense fallback={<LoadingIndicator />}></Suspense>
-        ) : isNotFoundError ? (
+        {isNotFoundError ? (
           <NotFound />
+        ) : isActiveIndicator ? (
+          <LoadingIndicator />
         ) : (
           cards.map((card) => <Card card={card} key={card.id} onClick={displayModal} />)
         )}

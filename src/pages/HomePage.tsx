@@ -9,13 +9,17 @@ import { partialCardInfo } from 'types';
 function HomePage() {
   const [searchRequest, setSearchRequest] = useState<partialCardInfo[]>([]);
   const [notFoundError, setNotFoundError] = useState<boolean>(false);
+  const [activeIndicator, setActiveIndicator] = useState(false);
 
   const startSearch = async (request: string) => {
+    setActiveIndicator(true);
     const characters = await getAPIData(request);
+    setActiveIndicator(false);
     try {
       const character = characters.filter((card: { name: string }) =>
         card.name.toLowerCase().includes(request.toLowerCase())
       );
+
       if (request === '') {
         setSearchRequest(characters);
         setNotFoundError(false);
@@ -43,7 +47,7 @@ function HomePage() {
         {
           <CardList
             cards={searchRequest}
-            isActiveIndicator={false}
+            isActiveIndicator={activeIndicator}
             isNotFoundError={notFoundError}
           />
         }
