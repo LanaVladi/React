@@ -1,7 +1,7 @@
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { Modal } from '../components/modal-window/Modal';
+import { Modal } from '../components/modal/Modal';
 
 const setActiveModal = () => {};
 

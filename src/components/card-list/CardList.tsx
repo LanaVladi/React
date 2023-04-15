@@ -2,7 +2,7 @@ import React, { Suspense, useState } from 'react';
 import './cardList.css';
 import { Card } from './../Card';
 import { CardType, partialCardInfo } from 'types';
-import { Modal } from '../../components/modal-window/Modal';
+import { Modal } from '../modal/Modal';
 import { getAPIDataById } from '../../api';
 import { NotFound } from '../NotFound';
 import { LoadingIndicator } from '../../components/LoadingIndicator';
