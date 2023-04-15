@@ -1,0 +1,9 @@
+.loading-indicator {
+    font-size: 4rem;
+    color: red;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    align-items: center;
+    margin: 0 auto;
+
+}
