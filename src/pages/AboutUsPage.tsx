@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function About() {
+function AboutUsPage() {
   return (
     <>
       <h1>About us</h1>
@@ -10,4 +10,4 @@ function About() {
   );
 }
 
-export { About };
+export { AboutUsPage };

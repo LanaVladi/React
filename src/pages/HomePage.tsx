@@ -2,12 +2,13 @@ import { Searcher } from '../components/searcher/Searcher';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../components/card-list/CardList';
-import { CardList } from './../components/card-list/CardList';
+import { CardList } from '../components/card-list/CardList';
 import { getAPIData } from '../api';
 import { partialCardInfo } from 'types';
 
-function Home() {
+function HomePage() {
   const [searchRequest, setSearchRequest] = useState<partialCardInfo[]>([]);
+  const [notFoundError, setNotFoundError] = useState<boolean>(false);
 
   const startSearch = async (request: string) => {
     const characters = await getAPIData(request);
@@ -17,15 +18,19 @@ function Home() {
       );
       if (request === '') {
         setSearchRequest(characters);
+        setNotFoundError(false);
       } else if (character.length === 0) {
-        console.log('CARD NOT FOUND! PLEASE TRY AGAIN!');
+        setNotFoundError(true);
       } else if (character) {
         setSearchRequest(character);
+        setNotFoundError(false);
       } else {
         setSearchRequest(character);
+        setNotFoundError(false);
       }
     } catch {
       console.error();
+      setNotFoundError(true);
     }
   };
 
@@ -35,10 +40,16 @@ function Home() {
       <Link to="/"></Link>
       <div>{<Searcher startSearch={startSearch} />}</div>
       <section className="cards-list-container">
-        {<CardList cards={searchRequest} isActiveIndicator={false} />}
+        {
+          <CardList
+            cards={searchRequest}
+            isActiveIndicator={false}
+            isNotFoundError={notFoundError}
+          />
+        }
       </section>
     </>
   );
 }
 
-export { Home };
+export { HomePage };
