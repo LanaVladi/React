@@ -1,4 +1,7 @@
+import { Searcher } from '../components/searcher/Searcher';
 import { describe } from 'vitest';
+import { fireEvent, render, screen } from '@testing-library/react';
+import React from 'react';
 
 const setLocalStorage = (id: string, data: { data: string }) => {
   window.localStorage.setItem(id, JSON.stringify(data));
@@ -21,5 +24,23 @@ describe('Set localStorage item', () => {
     const mockJson = { data: 'json data' };
     setLocalStorage(mockId, mockJson);
     expect(localStorage.getItem(mockId)).toEqual(JSON.stringify(mockJson));
+  });
+});
+
+const startSearch = () => {};
+
+describe('HomePage', async () => {
+  it('should renders placeholder in searcher HomePage', () => {
+    render(<Searcher startSearch={startSearch} />);
+    expect(screen.getByPlaceholderText(/Search by name/i)).toBeInTheDocument();
+  });
+});
+
+describe('Searcher', async () => {
+  it('should renders form in searcher in HomePage', () => {
+    render(<Searcher startSearch={startSearch} />);
+    const form = screen.getByTestId('form');
+    expect(form).toBeInTheDocument();
+    fireEvent.submit(form);
   });
 });

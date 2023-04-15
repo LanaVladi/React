@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { Card } from '../components/Card';
 
@@ -18,5 +18,23 @@ describe('Card', () => {
       />
     );
     expect(screen.getAllByRole('img')).toBeDefined();
+  });
+});
+
+describe('Card', () => {
+  it('should have click event in Card', () => {
+    render(
+      <Card
+        onClick={onClick}
+        card={{
+          id: 1,
+          name: 'Rick Sanchez',
+          image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+        }}
+      />
+    );
+    const card = screen.getAllByTestId('card-elem');
+    expect(screen.getByTestId('card-elem')).toBeInTheDocument();
+    fireEvent.click(card[0]);
   });
 });
