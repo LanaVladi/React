@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './cardList.css';
+import './card-list.css';
 import { Card } from './../Card';
 import { CardType, partialCardInfo } from 'types';
 import { Modal } from '../modal/Modal';
