@@ -17,10 +17,10 @@ function Modal({ openedCard, setActiveModal, displayIndicator }: modalCardProps)
 
   return (
     <>
-      <div className="modal-overlay" onClick={closeModal}></div>
+      <div className="modal-overlay" data-testid="modal-overlay" onClick={closeModal}></div>
       <div className="modal-wrapper">
         <div className="modal">
-          <button className="modal-close-btn" onClick={closeModal}>
+          <button className="modal-close-btn" data-testid="modal-close-btn" onClick={closeModal}>
             X
           </button>
           {displayIndicator ? (

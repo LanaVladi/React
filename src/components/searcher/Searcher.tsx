@@ -34,11 +34,11 @@ export function Searcher({ startSearch }: SearcherProps) {
 
   return (
     <>
-      <form className="form-input" onSubmit={handleSubmitForm}>
+      <form className="form-input" data-testid="form" onSubmit={handleSubmitForm}>
         <input
           className="searcher-input"
           type={'text'}
-          placeholder="Search by full name"
+          placeholder="Search by name"
           value={inputText}
           onChange={onChangeSearcher}
           ref={inputRef}

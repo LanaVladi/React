@@ -7,10 +7,11 @@ export type CardProps = {
 };
 
 export function Card({ card, onClick }: CardProps) {
+  console.log('card :', card);
   const { id, name, image } = card;
   return (
     <>
-      <div className="card" onClick={onClick(id)}>
+      <div className="card" data-testid="card-elem" onClick={onClick(id)}>
         <img className="img-container__img" src={image} alt={name} />
         <div className="card-details">
           <h5 className="card-name">{name}</h5>
