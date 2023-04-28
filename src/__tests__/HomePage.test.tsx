@@ -1,19 +1,35 @@
 import { describe, it } from 'vitest';
-import { render } from '@testing-library/react';
 import React from 'react';
 import { HomePage } from '../pages/HomePage';
 import { BrowserRouter } from 'react-router-dom';
+import { renderWithProviders } from './test-utils';
+import { Provider } from 'react-redux';
+import { setupStore } from '../store/store';
+
+const store = setupStore({});
 
 describe('HomePage', async () => {
-  it('should renders container cards-list-container in HomePage', () => {
-    const { container } = render(<HomePage />, { wrapper: BrowserRouter });
-    expect(container.getElementsByClassName('cards-list-container')[0]).toBeInTheDocument();
+  it('should renders cards-list-container in HomePage', () => {
+    const { container } = renderWithProviders(
+      <Provider store={store}>
+        <HomePage />
+      </Provider>,
+      {
+        wrapper: BrowserRouter,
+      }
+    );
+    expect(container.getElementsByTagName('section')[0]).toBeInTheDocument();
   });
-});
 
-describe('HomePage', async () => {
   it('should renders div wrapper for Searcher component in HomePage', () => {
-    const { container } = render(<HomePage />, { wrapper: BrowserRouter });
+    const { container } = renderWithProviders(
+      <Provider store={store}>
+        <HomePage />
+      </Provider>,
+      {
+        wrapper: BrowserRouter,
+      }
+    );
     expect(container.getElementsByTagName('div')[0]).toBeInTheDocument();
   });
 });

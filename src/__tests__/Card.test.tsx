@@ -5,19 +5,17 @@ import { Card } from '../components/Card';
 
 const onClick = () => () => {};
 
+const card = {
+  id: 1,
+  name: 'Rick Sanchez',
+  image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+};
+
 describe('Card', () => {
   it('Renders images in Card', () => {
-    render(
-      <Card
-        card={{
-          id: 0,
-          name: '',
-          image: '',
-        }}
-        onClick={onClick}
-      />
-    );
+    render(<Card card={card} onClick={onClick} />);
     expect(screen.getAllByRole('img')).toBeDefined();
+    expect(screen.getByAltText(card.name)).toBeDefined();
   });
 });
 
