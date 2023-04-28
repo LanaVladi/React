@@ -1,49 +1,42 @@
 import React, { useState } from 'react';
 import './card-list.css';
 import { Card } from './../Card';
-import { CardType, partialCardInfo } from 'types';
+import { CardType } from 'types';
 import { Modal } from '../modal/Modal';
-import { getAPIDataById } from '../../api';
 import { NotFound } from '../not-found/NotFound';
 import { LoadingIndicator } from '../loading-indicator/LoadingIndicator';
+import { useAppSelector } from '../../hooks';
+import { RootState } from '../../store/store';
+import { useGetDataByNameQuery } from '../../store/APIDataSlice';
 
-export type CardListProps = {
-  cards: partialCardInfo[];
-  isActiveIndicator: boolean;
-  isNotFoundError: boolean;
-};
-
-export function CardList({ cards, isActiveIndicator, isNotFoundError }: CardListProps) {
+export function CardList() {
   const [activeModal, setActiveModal] = useState(false);
   const [openedCard, setOpenedCard] = useState<CardType>();
-  const [activeIndicator, setActiveIndicator] = useState(false);
 
-  const displayModal = (id: number) => async () => {
+  const mainCardsList = useAppSelector((state: RootState) => state.mainCards.mainCardsList);
+  const inputText = useAppSelector((state: RootState) => state.searcher.searchText);
+  const { data, isError, isFetching } = useGetDataByNameQuery(inputText || '');
+
+  const displayModal = (id: number) => () => {
+    const dataModalCard = mainCardsList.filter((card) => card.id === id);
     setActiveModal(true);
-    setActiveIndicator(true);
-    const dataModalCard = await getAPIDataById(id);
-    setOpenedCard(dataModalCard);
-    setActiveIndicator(false);
+    setOpenedCard(dataModalCard[0]);
   };
 
   return (
     <>
-      <div className="cards-container ">
-        {isNotFoundError ? (
+      <div className="cards-container">
+        {isError ? (
           <NotFound />
-        ) : isActiveIndicator ? (
+        ) : data?.results.length && isFetching ? (
           <LoadingIndicator />
         ) : (
-          cards.map((card) => <Card card={card} key={card.id} onClick={displayModal} />)
+          data?.results.map((card: CardType) => (
+            <Card card={card} key={card.id} onClick={displayModal} />
+          ))
         )}
 
-        {activeModal && (
-          <Modal
-            displayIndicator={activeIndicator}
-            setActiveModal={setActiveModal}
-            openedCard={openedCard}
-          />
-        )}
+        {activeModal && <Modal setActiveModal={setActiveModal} openedCard={openedCard} />}
       </div>
     </>
   );

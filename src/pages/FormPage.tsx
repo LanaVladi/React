@@ -1,29 +1,23 @@
 import { Form } from '../components/form/Form';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { SignInCard } from '../components/form/sign-in-card/SignInCard';
 import { SignInFormFields } from 'types';
 import './form-page.css';
+import { useAppSelector } from '../hooks';
+import { RootState } from '../store/store';
 
 function FormPage() {
-  const [signInCardsList, setSignInCardsList] = useState<SignInFormFields[]>([]);
-
-  const addNewCard = (card: SignInFormFields) => {
-    setSignInCardsList((prevValue) => {
-      return [...prevValue, card];
-    });
-  };
+  const formCardsList = useAppSelector((state: RootState) => state.formCards.formCardsList);
 
   return (
     <>
       <Link to="/form"></Link>
-
       <h1>Form</h1>
-      <Form addNewCard={addNewCard} />
-
+      <Form />
       <h2>Cards</h2>
       <div className="form-cards-container">
-        {signInCardsList.map((card: SignInFormFields) => (
+        {formCardsList.map((card: SignInFormFields) => (
           <SignInCard key={card.avatar} signInCard={card} />
         ))}
       </div>

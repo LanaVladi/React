@@ -1,5 +1,5 @@
 import React from 'react';
-import { partialCardInfo } from 'types';
+import { partialCardInfo } from '../types';
 
 export type CardProps = {
   card: partialCardInfo;
@@ -7,7 +7,6 @@ export type CardProps = {
 };
 
 export function Card({ card, onClick }: CardProps) {
-  console.log('card :', card);
   const { id, name, image } = card;
   return (
     <>
