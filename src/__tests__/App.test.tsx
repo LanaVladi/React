@@ -1,12 +1,13 @@
 import { describe, it } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { App } from '../App';
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
+import { renderWithProviders } from './test-utils';
 
 describe('App', () => {
-  it('Renders about us page', () => {
-    render(
+  it('renderWithProviderss about us page', () => {
+    renderWithProviders(
       <MemoryRouter initialEntries={['/about']}>
         <App />
       </MemoryRouter>
@@ -22,7 +23,7 @@ describe('App', () => {
 
 describe('App', () => {
   it('should have home link', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>
@@ -37,7 +38,7 @@ describe('App', () => {
 
 describe('App', () => {
   it('should have form link', () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/form']}>
         <App />
       </MemoryRouter>

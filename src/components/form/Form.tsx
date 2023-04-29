@@ -1,8 +1,10 @@
-import React, { FC, useEffect } from 'react';
-import { FormProps, SignInFormFields } from 'types';
-import { Confirmation } from './Confirmation';
+import React, { useEffect } from 'react';
+import { FormProps, SignInFormFields } from '../../types';
+import { Confirmation } from './confirmation/Confirmation';
 import './form.css';
 import { useForm } from 'react-hook-form';
+import { useAppDispatch } from '../../hooks';
+import { addNewCard } from '../../store/formSlice';
 
 const defaultValues: SignInFormFields = {
   username: '',
@@ -12,7 +14,9 @@ const defaultValues: SignInFormFields = {
   remember: false,
   avatar: '',
 };
-const Form: FC<FormProps> = ({ addNewCard }) => {
+const Form = () => {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -25,10 +29,17 @@ const Form: FC<FormProps> = ({ addNewCard }) => {
   });
 
   const onSubmit = (values: SignInFormFields) => {
-    addNewCard({
-      ...values,
-      avatar: URL.createObjectURL(values.avatar?.[0] as unknown as Blob),
-    });
+    const { avatar, birthday, country, gender, remember, username } = values;
+    const formCard: SignInFormFields = {
+      avatar: URL.createObjectURL(avatar?.[0] as unknown as Blob),
+      birthday,
+      country,
+      gender,
+      remember,
+      username,
+    };
+
+    dispatch(addNewCard(formCard));
   };
 
   useEffect(() => {
@@ -77,9 +88,6 @@ const Form: FC<FormProps> = ({ addNewCard }) => {
             <option value="" disabled>
               Select country
             </option>
-            {/* {['Uzbekistan', 'Belarus'].map((country) => (
-              <option key={country} value={country}></option>
-            ))} */}
             <option value={'Uzbekistan'}>Uzbekistan</option>
             <option value={'Belarus'}>Belarus</option>
             <option value={'Japan'}>Japan</option>
