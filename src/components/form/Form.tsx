@@ -77,6 +77,9 @@ const Form: FC<FormProps> = ({ addNewCard }) => {
             <option value="" disabled>
               Select country
             </option>
+            {/* {['Uzbekistan', 'Belarus'].map((country) => (
+              <option key={country} value={country}></option>
+            ))} */}
             <option value={'Uzbekistan'}>Uzbekistan</option>
             <option value={'Belarus'}>Belarus</option>
             <option value={'Japan'}>Japan</option>
